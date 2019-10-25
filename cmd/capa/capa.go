@@ -63,6 +63,9 @@ func (p Provider) GetInfraMachineTemplate(name, namespace string) generator.Obje
 	template.Namespace = namespace
 	template.Kind = constants.AWSMachineKind + "Template"
 	template.APIVersion = infrav1.GroupVersion.String()
+	template.Spec.Template.Spec.InstanceType = "${MACHINE_DEPLOYMENT_INSTANCE_TYPE}"
+	template.Spec.Template.Spec.IAMInstanceProfile = "nodes.cluster-api-provider-aws.sigs.k8s.io"
+	template.Spec.Template.Spec.SSHKeyName = "${SSH_KEY_NAME}"
 	return template
 }
 
